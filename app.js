@@ -151,7 +151,23 @@ app.post('/post_add_to_card',(req,res)=>{
   })
 });
 
+//post login///
+app.post('/login',(req,res)=>{
+  var mobileno = req.body.mobileno
+  db.collection('Subscribers').find({mobileno:mobileno}).toArray((err,result) => {
+    if(err) throw err;
+    res.send(result);
+  })
+});
 
+//forgetpwd api//
+app.post('/forgetpwd',(req,res)=>{
+  var email = req.body.email
+  db.collection('Subscribers').find({email:email}).toArray((err,result) => {
+    if(err) throw err;
+    res.send(result);
+  })
+});
 
 //connection with mongo serer
 MongoClient.connect(mongourl,(err,connection) => {
