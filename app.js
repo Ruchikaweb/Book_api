@@ -93,7 +93,7 @@ app.get('/all_subscriber',(req,res) => {
   })
 })
 
-//get Subscribers api for availableSubscriber//
+//get Subscribers api for available Subscriber//
 app.get('/available_subscriber',(req,res) => {
   db.collection('Subscribers').find({isActive:true}).toArray((err,result) => {
     if(err) throw err;
@@ -101,13 +101,13 @@ app.get('/available_subscriber',(req,res) => {
   })
 })
 
-//get Subscribers api for out of stackSubscribers//
+//get Subscribers api for blocked Subscribers//
 app.get('/out_of_stock_subscriber',(req,res) => {
   db.collection('Subscribers').find({isActive:false}).toArray((err,result) => {
     if(err) throw err;
     res.send(result)
   })
-})
+}) 
 
 //post Subscribers //
 app.post('/post_subscriber',(req,res)=>{
@@ -116,6 +116,39 @@ app.post('/post_subscriber',(req,res)=>{
     res.send('data added');
   })
 });
+
+//soft delete Subscriber//
+app.put('/deactivesubscriber/:id',(req,res) => {
+  var id = mongo.ObjectID(req.params.id)
+  db.collection('Subscribers').updateOne(
+      {_id:id},
+      {
+          $set:{
+              isActive:false
+          }
+      },(err,result) => {
+          if(err) throw err;
+          res.status(200).send('Data Updated')
+      }
+  )
+});
+
+//Reactive
+app.put('/activatesubscriber/:id',(req,res) => {
+  var id = mongo.ObjectID(req.params.id)
+  db.collection('Subscribers').updateOne(
+      {_id:id},
+      {
+          $set:{
+              isActive:true
+          }
+      },(err,result) => {
+          if(err) throw err;
+          res.status(200).send('Data Updated')
+      }
+  )
+}); 
+
 
 
 //get Books_order//
