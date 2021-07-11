@@ -187,7 +187,8 @@ app.post('/post_add_to_card',(req,res)=>{
 //post login///
 app.post('/login',(req,res)=>{
   var mobileno = req.body.mobileno
-  db.collection('Subscribers').find({mobileno:mobileno}).toArray((err,result) => {
+  var pwd = req.body.password
+  db.collection('Subscribers').find({mobileno:mobileno,password:pwd}).toArray((err,result) => {
     if(err) throw err;
     res.send(result);
   })
