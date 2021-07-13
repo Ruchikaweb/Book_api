@@ -51,6 +51,48 @@ app.post('/post_books',(req,res)=>{
   })
 });
 
+
+//out of stalk books//
+app.put('/deactivatebooks/:id',(req,res) => {
+  var id = mongo.ObjectID(req.params.id)
+  db.collection('Books').updateOne(
+      {_id:id},
+      {
+          $set:{ 
+              isActive:false
+          }
+      },(err,result) => {
+          if(err) throw err;
+          res.status(200).send('Data Updated')
+      }
+  )
+});
+
+// in stalk books //
+app.put('/activatebooks/:id',(req,res) => {
+  var id = mongo.ObjectID(req.params.id)
+  db.collection('Books').updateOne(
+      {_id:id},
+      {
+          $set:{
+              isActive:true
+          }
+      },(err,result) => {
+          if(err) throw err;
+          res.status(200).send('Data Updated')
+      }
+  )
+}); 
+
+// Hard delete books ///
+app.delete('/deletebook/:id',(req,res) =>{
+  var id = mongo.ObjectID(req.params.id)
+  db.collection('Books').remove({_id:id}, (err,result) =>{
+    if(err) throw err;
+    res.status(200).send('deleted')
+  })
+}) ;
+
 //get User request api//
 app.get('/request',(req,res) => {
   db.collection('userrequest').find({}).toArray((err,result) => {
