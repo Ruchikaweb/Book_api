@@ -239,11 +239,30 @@ app.post('/login',(req,res)=>{
 //forgetpwd api//
 app.post('/forgetpwd',(req,res)=>{
   var email = req.body.email
-  db.collection('Subscribers').find({email:email}).toArray((err,result) => {
+  var question = req.body.question
+  var answer = rew.body.answer
+  db.collection('Subscribers').find({email:email,question:question,answer:answer}).toArray((err,result) => {
     if(err) throw err;
     res.send(result);
   })
 });
+
+///pwd update////
+app.put('/forgetpwdupdate',(req,res) => {
+  var email = req.body.email
+  var password = req.body.password
+  db.collection('Subscribers').updateOne(
+      {email:email},
+      {
+          $set:{
+              password:password
+          }
+      },(err,result) => {
+          if(err) throw err;
+          res.status(200).send('Data Updated')
+      }
+  )
+}); 
 
 //connection with mongo serer
 MongoClient.connect(mongourl,(err,connection) => {
