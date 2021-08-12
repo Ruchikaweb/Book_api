@@ -251,13 +251,13 @@ app.post('/forgetpwd',(req,res)=>{
 app.put('/forgetpwdupdate',(req,res) => {
   var email = req.body.email
   var password = req.body.password
-  var conformpwd = req.body.conformpwd
+  var  conformpassword = req.body. conformpassword
   db.collection('Subscribers').updateOne(
       {email:email},
       {
           $set:{
               password:password,
-              conformpwd:conformpwd
+               conformpassword: conformpassword
           }
       },(err,result) => {
           if(err) throw err;
