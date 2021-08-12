@@ -251,18 +251,20 @@ app.post('/forgetpwd',(req,res)=>{
 app.put('/forgetpwdupdate',(req,res) => {
   var email = req.body.email
   var password = req.body.password
+  var conformpwd = req.body.conformpwd
   db.collection('Subscribers').updateOne(
       {email:email},
       {
           $set:{
-              password:password
+              password:password,
+              conformpwd:conformpwd
           }
       },(err,result) => {
           if(err) throw err;
           res.status(200).send('Data Updated')
       }
   )
-}); 
+});
 
 //connection with mongo serer
 MongoClient.connect(mongourl,(err,connection) => {
