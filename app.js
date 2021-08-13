@@ -5,14 +5,14 @@ const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const fileupload = require('express-fileupload');
+// const fileupload = require('express-fileupload');
 var mongourl="mongodb+srv://ruchikaa:ruchika123@websites.djtcx.mongodb.net/Secondhsndbook?retryWrites=true&w=majority"
 
 let db;
 
-app.use(fileupload({
-  useTempFiles:true
-}))
+// app.use(fileupload({
+//   useTempFiles:true
+// }))
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
