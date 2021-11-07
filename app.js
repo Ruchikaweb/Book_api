@@ -5,15 +5,18 @@ const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// const fileUpload = require('express-fileupload')
-// const cloudinary = require('cloudinary').v2
-// const fileupload = require('express-fileupload');
 var mongourl="mongodb+srv://ruchikaa:ruchika123@websites.djtcx.mongodb.net/Secondhsndbook?retryWrites=true&w=majority"
+var db;
+app.use(cors());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json())
+// const fileupload = require('express-fileupload');
+// const cloudinary = require('cloudinary').v2;
 
-let db;
-// app.use(fileUpload({
-//     useTempFiles:true
-// }))
+
+// app.use(fileupload({
+//   useTempFiles:true
+//  }))
 
 //  cloudinary.config({
 //   cloud_name:'dcdelrn5d',
@@ -21,22 +24,20 @@ let db;
 //   api_secret:'AAq4oCL7rr3t-ADlvMbe70lrBMA'
 // }) ;
 
-app.use(cors());
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json())
+
 
 //health Check
 app.get('/',(req,res) => {
     res.send("Health Ok");
 });
 
-// //for image upload//
+// //for upload image//
 // app.post('/uploadImage',(req,res)=>{
-// const file = req.files.image
-// cloudinary.uploader.upload(file.tempFilePath, (error, result)=> {
-//     if(error) throw error
-//     res.send(result)
-// });
+//   const file = req.files.image
+//   cloudinary.uploader.upload(file.tempFilePath, (error, result)=> {
+//       if(error) throw error
+//       res.send(result)
+//   });
 
 //get Books api for All books//
 app.get('/all_books',(req,res) => {
@@ -69,7 +70,6 @@ app.post('/post_books',(req,res)=>{
     res.send('data added');
   })
 });
-
 
 //out of stalk books//
 app.put('/deactivatebooks/:id',(req,res) => {
@@ -184,7 +184,7 @@ app.put('/deactivesubscriber/:id',(req,res) => {
   db.collection('Subscribers').updateOne(
       {_id:id},
       {
-          $set:{
+          $set:{ 
               isActive:false
           }
       },(err,result) => {
@@ -209,8 +209,6 @@ app.put('/activatesubscriber/:id',(req,res) => {
       }
   )
 }); 
-
-
 
 //get Books_order//
 app.get('/books_order',(req,res) => {
@@ -259,9 +257,9 @@ app.post('/login',(req,res)=>{
 app.post('/forgetpwd',(req,res)=>{
   var email = req.body.email
   var question = req.body.question
-  var answer = req.body.answer
+  var answer = rew.body.answer
   db.collection('Subscribers').find({email:email,selectquestion:question,answer:answer}).toArray((err,result) => {
-    if(err) throw err;
+    if(err) throw err; 
     res.send(result);
   })
 });
@@ -276,14 +274,15 @@ app.put('/forgetpwdupdate',(req,res) => {
       {
           $set:{
               password:password,
-               conformpassword:conformpassword
+              conformpassword:conformpassword
           }
       },(err,result) => {
           if(err) throw err;
           res.status(200).send('Data Updated')
       }
   )
-});
+}); 
+ 
 
 //connection with mongo serer
 MongoClient.connect(mongourl,(err,connection) => {
