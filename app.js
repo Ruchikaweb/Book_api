@@ -257,7 +257,7 @@ app.post('/login',(req,res)=>{
 app.post('/forgetpwd',(req,res)=>{
   var email = req.body.email
   var question = req.body.question
-  var answer = rew.body.answer
+  var answer = req.body.answer
   db.collection('Subscribers').find({email:email,selectquestion:question,answer:answer}).toArray((err,result) => {
     if(err) throw err; 
     res.send(result);
