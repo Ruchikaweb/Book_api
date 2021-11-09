@@ -15,13 +15,13 @@ const cloudinary = require('cloudinary').v2;
 
 
 app.use(fileupload({
-  useTempFiles:true
- }))
+ useTempFiles:true
+}))
 
  cloudinary.config({
-  cloud_name:'dcdelrn5d',
-  api_key:'357859941968782',
-  api_secret:'AAq4oCL7rr3t-ADlvMbe70lrBMA'
+ cloud_name:'dcdelrn5d',
+api_key:'357859941968782',
+api_secret:'AAq4oCL7rr3t-ADlvMbe70lrBMA'
 }) ;
 
 
@@ -38,6 +38,8 @@ app.post('/uploadImage',(req,res)=>{
       if(error) throw error
       res.send(result)
   });
+
+})
 
 //get Books api for All books//
 app.get('/all_books',(req,res) => {
@@ -161,7 +163,6 @@ app.get('/available_subscriber',(req,res) => {
     res.send(result)
   })
 })
-
 //get Subscribers api for blocked Subscribers//
 app.get('/out_of_stock_subscriber',(req,res) => {
   db.collection('Subscribers').find({isActive:false}).toArray((err,result) => {
@@ -285,7 +286,7 @@ app.put('/forgetpwdupdate',(req,res) => {
  
 
 //connection with mongo serer
-MongoClient.connect(mongourl,(err,connection) => {
+MongoClient.connect(mongourl,{ useUnifiedTopology: true },(err,connection) => {
     if(err) console.log(err);
     db = connection.db('Secondhsndbook');
   
@@ -294,5 +295,3 @@ MongoClient.connect(mongourl,(err,connection) => {
       console.log(`Server is running on port ${port}`)
     })
   })
-
-  
