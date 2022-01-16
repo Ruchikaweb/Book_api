@@ -10,19 +10,19 @@ var db;
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json())
-const fileupload = require('express-fileupload');
-const cloudinary = require('cloudinary').v2;
+// const fileupload = require('express-fileupload');
+// const cloudinary = require('cloudinary').v2;
 
 
-app.use(fileupload({
- useTempFiles:true
-}))
+// app.use(fileupload({
+//  useTempFiles:true
+// }))
 
- cloudinary.config({
- cloud_name:'dcdelrn5d',
-api_key:'357859941968782',
-api_secret:'AAq4oCL7rr3t-ADlvMbe70lrBMA'
-}) ;
+//  cloudinary.config({
+//  cloud_name:'dcdelrn5d',
+// api_key:'357859941968782',
+// api_secret:'AAq4oCL7rr3t-ADlvMbe70lrBMA'
+// }) ;
 
 
 
@@ -31,15 +31,15 @@ app.get('/',(req,res) => {
     res.send("Health Ok");
 });
 
-//for upload image//
-app.post('/uploadImage',(req,res)=>{
-  const file = req.files.image
-  cloudinary.uploader.upload(file.tempFilePath, (error, result)=> {
-      if(error) throw error
-      res.send(result)
-  });
+// //for upload image//
+// app.post('/uploadImage',(req,res)=>{
+//   const file = req.files.image
+//   cloudinary.uploader.upload(file.tempFilePath, (error, result)=> {
+//       if(error) throw error
+//       res.send(result)
+//   });
 
-})
+// })
 
 //get Books api for All books//
 app.get('/all_books',(req,res) => {
